@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>MovieHub</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+
+            --bg: #07090e;
+            --card: #10151e;
+            --card2: #0c1118;
+            --border: #202938;
+
+            --text: #f5f7fb;
+            --muted: #8f9aaa;
+
+            --primary: #7657ff;
+            --primary-light: #9d88ff;
+
+            --green: #21c987;
+
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 0%,
+                    rgba(118,87,255,.15),
+                    transparent 30%
+                ),
+
+                var(--bg);
+
+            color: var(--text);
+
+            font-family:
+                Inter,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+        }
+
+
+        /* ==================================================
+           HEADER
+        ================================================== */
+
+        .header {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+            background:
+                rgba(7,9,14,.88);
+
+            backdrop-filter:
+                blur(18px);
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,.06);
+
+        }
+
+
+        .header-inner {
+
+            max-width: 1050px;
+
+            min-height: 68px;
+
+            margin: auto;
+
+            padding:
+                10px 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 21px;
+
+            font-weight: 900;
+
+            white-space: nowrap;
+
+        }
+
+
+        .logo-icon {
+
+            width: 39px;
+
+            height: 39px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7657ff,
+                    #4e38c8
+                );
+
+        }
+
+
+        .logo span {
+
+            color:
+                var(--primary-light);
+
+        }
+
+
+        /* ==================================================
+           SEARCH
+        ================================================== */
+
+        .search {
+
+            flex: 1;
+
+            max-width: 600px;
+
+            margin-left: auto;
+
+            display: flex;
+
+        }
+
+
+        .search input {
+
+            width: 100%;
+
+            height: 42px;
+
+            padding:
+                0 14px;
+
+            outline: none;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-right: none;
+
+            border-radius:
+                11px 0 0 11px;
+
+            background:
+                #0d121a;
+
+            color: white;
+
+        }
+
+
+        .search button {
+
+            height: 42px;
+
+            padding:
+                0 18px;
+
+            border: none;
+
+            border-radius:
+                0 11px 11px 0;
+
+            background:
+                var(--primary);
+
+            color: white;
+
+            font-weight: 750;
+
+            cursor: pointer;
+
+        }
+
+
+        /* ==================================================
+           CONTAINER
+        ================================================== */
+
+        .container {
+
+            max-width: 1050px;
+
+            margin: auto;
+
+            padding:
+                25px 15px 60px;
+
+        }
+
+
+        /* ==================================================
+           HERO
+        ================================================== */
+
+        .hero {
+
+            padding: 30px;
+
+            margin-bottom: 28px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #121827,
+                    #0b1018
+                );
+
+        }
+
+
+        .hero-label {
+
+            display: inline-block;
+
+            padding:
+                6px 11px;
+
+            margin-bottom: 13px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(118,87,255,.12);
+
+            color:
+                var(--primary-light);
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+        }
+
+
+        .hero h1 {
+
+            font-size:
+                clamp(28px,5vw,43px);
+
+            line-height: 1.1;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .hero p {
+
+            color:
+                var(--muted);
+
+            line-height: 1.6;
+
+            font-size: 14px;
+
+        }
+
+
+        /* ==================================================
+           SECTION
+        ================================================== */
+
+        .section {
+
+            margin-top: 28px;
+
+        }
+
+
+        .section-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 13px;
+
+        }
+
+
+        .section-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            font-size: 20px;
+
+            font-weight: 850;
+
+        }
+
+
+        .count {
+
+            color:
+                var(--muted);
+
+            font-size: 12px;
+
+        }
+
+
+        /* ==================================================
+           MOVIE LIST
+        ================================================== */
+
+        .movie-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 9px;
+
+        }
+
+
+        .movie-card {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 9px;
+
+            min-height: 88px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 14px;
+
+            background:
+                var(--card);
+
+            color: white;
+
+            text-decoration: none;
+
+            transition:
+                .18s ease;
+
+        }
+
+
+        .movie-card:hover {
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                rgba(118,87,255,.5);
+
+            background:
+                #151c27;
+
+        }
+
+
+        .poster {
+
+            width: 65px;
+
+            height: 75px;
+
+            flex: 0 0 65px;
+
+            object-fit: cover;
+
+            border-radius: 9px;
+
+            background:
+                #171d26;
+
+        }
+
+
+        .movie-info {
+
+            min-width: 0;
+
+            flex: 1;
+
+        }
+
+
+        .movie-title {
+
+            font-size: 14px;
+
+            line-height: 1.4;
+
+            font-weight: 750;
+
+            margin-bottom: 7px;
+
+            display:
+                -webkit-box;
+
+            /* -webkit-line-clamp: 2; */
+
+            -webkit-box-orient: vertical;
+
+            overflow: hidden;
+
+        }
+
+
+        .badge {
+
+            display: inline-block;
+
+            padding:
+                4px 8px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(33,201,135,.1);
+
+            border:
+                1px solid
+                rgba(33,201,135,.18);
+
+            color:
+                #58e4ad;
+
+            font-size: 10px;
+
+            font-weight: 750;
+
+        }
+
+
+        .arrow {
+
+            width: 34px;
+
+            height: 34px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color:
+                var(--primary-light);
+
+            font-size: 22px;
+
+        }
+
+
+        /* ==================================================
+           LOADING
+        ================================================== */
+
+        .loading {
+
+            padding:
+                70px 20px;
+
+            text-align: center;
+
+            color:
+                var(--muted);
+
+        }
+
+
+        .spinner {
+
+            width: 38px;
+
+            height: 38px;
+
+            margin:
+                0 auto 15px;
+
+            border:
+                3px solid
+                rgba(255,255,255,.08);
+
+            border-top-color:
+                var(--primary);
+
+            border-radius: 50%;
+
+            animation:
+                spin .8s linear infinite;
+
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        /* ==================================================
+           ERROR
+        ================================================== */
+
+        .error {
+
+            display: none;
+
+            padding: 20px;
+
+            text-align: center;
+
+            border:
+                1px solid
+                rgba(255,80,95,.2);
+
+            border-radius: 15px;
+
+            color:
+                #ff8995;
+
+            background:
+                rgba(255,80,95,.07);
+
+        }
+
+
+        .retry {
+
+            margin-top: 12px;
+
+            padding:
+                9px 16px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background:
+                var(--primary);
+
+            color: white;
+
+            cursor: pointer;
+
+        }
+
+
+        /* ==================================================
+           MOBILE
+        ================================================== */
+
+        @media(max-width:700px) {
+
+            .header-inner {
+
+                flex-wrap: wrap;
+
+            }
+
+
+            .search {
+
+                order: 3;
+
+                flex-basis: 100%;
+
+                max-width: none;
+
+            }
+
+
+            .container {
+
+                padding:
+                    18px 10px 45px;
+
+            }
+
+
+            .hero {
+
+                padding: 22px;
+
+            }
+
+
+            .movie-card {
+
+                padding: 8px;
+
+            }
+
+
+            .poster {
+
+                width: 58px;
+
+                height: 69px;
+
+                flex-basis: 58px;
+
+            }
+
+
+            .arrow {
+
+                display: none;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="header-inner">
+
+
+        <a
+            href="/home"
+            class="logo"
+        >
+
+            <div class="logo-icon">
+                🎬
+            </div>
+
+            Movie<span>Hub</span>
+
+        </a>
+
+
+        <form
+            class="search"
+            id="searchForm"
+        >
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search movies..."
+            >
+
+            <button>
+                Search
+            </button>
+
+        </form>
+
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+    <section class="hero">
+
+        <div class="hero-label">
+            ✦ MOVIE DISCOVERY
+        </div>
+
+
+        <h1>
+            Discover Movies &
+            <br>
+            Web Series
+        </h1>
+
+
+        <p>
+            Browse the latest movies,
+            trending releases and web series.
+        </p>
+
+    </section>
+
+
+    <div
+        class="loading"
+        id="loading"
+    >
+
+        <div class="spinner"></div>
+
+        Loading movies...
+
+    </div>
+
+
+    <div
+        class="error"
+        id="error"
+    >
+
+        <div id="errorMessage">
+            Unable to load movies.
+        </div>
+
+
+        <button
+            class="retry"
+            onclick="loadHome()"
+        >
+            Try Again
+        </button>
+
+    </div>
+
+
+    <!-- TRENDING -->
+
+    <section
+        class="section"
+        id="trendingSection"
+        style="display:none;"
+    >
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                🔥 Trending Movies & Web Series
+            </h2>
+
+            <span
+                class="count"
+                id="trendingCount"
+            ></span>
+
+        </div>
+
+
+        <div
+            class="movie-list"
+            id="trendingList"
+        ></div>
+
+    </section>
+
+
+    <!-- LATEST -->
+
+    <section
+        class="section"
+        id="latestSection"
+        style="display:none;"
+    >
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                ✨ Latest Movies
+            </h2>
+
+            <span
+                class="count"
+                id="latestCount"
+            ></span>
+
+        </div>
+
+
+        <div
+            class="movie-list"
+            id="latestList"
+        ></div>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+
+// ==========================================================
+// GET DOMAIN
+// ==========================================================
+
+async function getDomain() {
+
+    let domain =
+        localStorage.getItem(
+            "domain"
+        );
+
+
+    console.log(
+        "localStorage domain:",
+        domain
+    );
+
+
+    if (domain) {
+
+        return domain;
+
+    }
+
+
+    const response =
+        await fetch(
+            "/get-domain",
+            {
+                cache: "no-store"
+            }
+        );
+
+
+    const data =
+        await response.json();
+
+
+    console.log(
+        "Domain API:",
+        data
+    );
+
+
+    if (!data.success) {
+
+        throw new Error(
+            data.error ||
+            "Unable to find domain."
+        );
+
+    }
+
+
+    domain =
+        data.domain;
+
+
+    localStorage.setItem(
+        "domain",
+        domain
+    );
+
+
+    return domain;
+
+}
+
+
+// ==========================================================
+// LOAD HOME
+// ==========================================================
+
+async function loadHome() {
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    const error =
+        document.getElementById(
+            "error"
+        );
+
+
+    loading.style.display =
+        "block";
+
+
+    error.style.display =
+        "none";
+
+
+    try {
+
+        const domain =
+            await getDomain();
+
+
+        console.log(
+            "Using domain:",
+            domain
+        );
+
+
+        const apiUrl =
+            "/api/home?domain=" +
+            encodeURIComponent(
+                domain
+            );
+
+
+        console.log(
+            "Home API:",
+            apiUrl
+        );
+
+
+        const response =
+            await fetch(
+                apiUrl,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Home response:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.error ||
+                "Unable to load home."
+            );
+
+        }
+
+
+        renderMovies(
+            data.trending || [],
+            "trending"
+        );
+
+
+        renderMovies(
+            data.latest || [],
+            "latest"
+        );
+
+
+        loading.style.display =
+            "none";
+
+
+    }
+    catch(errorObject) {
+
+        console.error(
+            errorObject
+        );
+
+
+        loading.style.display =
+            "none";
+
+
+        error.style.display =
+            "block";
+
+
+        document.getElementById(
+            "errorMessage"
+        ).textContent =
+            errorObject.message ||
+            "Unable to load movies.";
+
+    }
+
+}
+
+
+// ==========================================================
+// CREATE CARD
+// ==========================================================
+
+function createMovieCard(movie) {
+
+    const card =
+        document.createElement(
+            "a"
+        );
+
+
+    card.className =
+        "movie-card";
+
+
+    /*
+     * IMPORTANT
+     *
+     * local_url is our Flask URL.
+     *
+     * Example:
+     *
+     * /movie/7423/Sardar-2-2026....html
+     */
+
+    card.href =
+        movie.local_url ||
+        "#";
+
+
+    // No target=_blank
+    // No external redirect
+
+
+    const image =
+        document.createElement(
+            "img"
+        );
+
+
+    image.className =
+        "poster";
+
+
+    image.src =
+        movie.image ||
+        "";
+
+
+    image.alt =
+        movie.title ||
+        "Movie";
+
+
+    image.loading =
+        "lazy";
+
+
+    const info =
+        document.createElement(
+            "div"
+        );
+
+
+    info.className =
+        "movie-info";
+
+
+    const title =
+        document.createElement(
+            "div"
+        );
+
+
+    title.className =
+        "movie-title";
+
+
+    title.textContent =
+        movie.title ||
+        "Unknown Movie";
+
+
+    info.appendChild(
+        title
+    );
+
+
+    if (movie.category) {
+
+        const badge =
+            document.createElement(
+                "span"
+            );
+
+
+        badge.className =
+            "badge";
+
+
+        badge.textContent =
+            movie.category;
+
+
+        info.appendChild(
+            badge
+        );
+
+    }
+
+
+    const arrow =
+        document.createElement(
+            "div"
+        );
+
+
+    arrow.className =
+        "arrow";
+
+
+    arrow.textContent =
+        "›";
+
+
+    card.appendChild(
+        image
+    );
+
+
+    card.appendChild(
+        info
+    );
+
+
+    card.appendChild(
+        arrow
+    );
+
+
+    return card;
+
+}
+
+
+// ==========================================================
+// RENDER
+// ==========================================================
+
+function renderMovies(
+    movies,
+    type
+) {
+
+    const section =
+        document.getElementById(
+            type + "Section"
+        );
+
+
+    const list =
+        document.getElementById(
+            type + "List"
+        );
+
+
+    const count =
+        document.getElementById(
+            type + "Count"
+        );
+
+
+    list.innerHTML =
+        "";
+
+
+    if (!movies.length) {
+
+        section.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    movies.forEach(
+        function(movie) {
+
+            list.appendChild(
+                createMovieCard(
+                    movie
+                )
+            );
+
+        }
+    );
+
+
+    count.textContent =
+        movies.length +
+        " titles";
+
+
+    section.style.display =
+        "block";
+
+}
+
+
+// ==========================================================
+// SEARCH
+// ==========================================================
+
+document
+    .getElementById(
+        "searchForm"
+    )
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const query =
+                document
+                    .getElementById(
+                        "searchInput"
+                    )
+                    .value
+                    .trim();
+
+
+            if (!query) {
+
+                return;
+
+            }
+
+
+            window.location.href =
+                "/search?search=" +
+                encodeURIComponent(
+                    query
+                );
+
+        }
+    );
+
+
+// ==========================================================
+// START
+// ==========================================================
+
+loadHome();
+
+</script>
+
+</body>
+
+</html>

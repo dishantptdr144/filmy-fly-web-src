@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>MovieHub</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0f1115;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        /* ==========================================
+           TOP HEADER
+        ========================================== */
+
+        .top-header {
+            width: 100%;
+            height: 64px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 8px 14px;
+
+            margin-bottom: 15px;
+
+            background: #0b0d13;
+
+            border: 1px solid #252933;
+            border-radius: 4px;
+        }
+
+        /* Back Button */
+
+        .header-back {
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 0;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #25205a;
+
+            color: #ffffff;
+
+            font-size: 21px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: background 0.2s ease;
+        }
+
+        .header-back:hover {
+            background: #352d78;
+        }
+
+        /* Logo */
+
+        .header-logo {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #7047e8;
+
+            border-radius: 9px;
+
+            font-size: 20px;
+        }
+
+        /* Header Title */
+
+        .header-title {
+            font-size: 23px;
+            font-weight: 700;
+
+            color: #ffffff;
+
+            letter-spacing: -0.3px;
+        }
+
+        .header-title span {
+            color: #9b7cff;
+        }
+
+
+        /* ==========================================
+           MOVIE CARD
+        ========================================== */
+
+        .movie-card {
+            background: #181b21;
+
+            border: 1px solid #292d35;
+
+            border-radius: 12px;
+
+            padding: 20px;
+        }
+
+
+        /* ==========================================
+           MOVIE TITLE
+        ========================================== */
+
+        .movie-title {
+            margin: 0 0 20px 0;
+
+            font-size: 26px;
+
+            line-height: 1.4;
+
+            color: #ffffff;
+        }
+
+
+        /* ==========================================
+           POSTER
+        ========================================== */
+
+        .poster-wrapper {
+            width: 100%;
+
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+        .poster {
+            display: block;
+
+            width: 100%;
+
+            max-width: 400px;
+
+            height: auto;
+
+            margin: 0 auto;
+
+            border-radius: 10px;
+
+            object-fit: cover;
+        }
+
+
+        /* ==========================================
+           DETAILS
+        ========================================== */
+
+        .details {
+            width: 100%;
+
+            margin-top: 20px;
+        }
+
+        .detail-row {
+            display: flex;
+
+            gap: 10px;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid #292d35;
+        }
+
+        .detail-label {
+            width: 150px;
+
+            min-width: 150px;
+
+            font-weight: bold;
+
+            color: #b9c0cc;
+        }
+
+        .detail-value {
+            flex: 1;
+
+            color: #ffffff;
+
+            word-break: break-word;
+        }
+
+
+        /* ==========================================
+           DESCRIPTION
+        ========================================== */
+
+        .description-section {
+            margin-top: 25px;
+        }
+
+        .section-title {
+            margin: 0 0 12px 0;
+
+            font-size: 20px;
+
+            color: #ffffff;
+        }
+
+        .description {
+            color: #c9ced8;
+
+            line-height: 1.7;
+
+            white-space: pre-line;
+        }
+
+
+        /* ==========================================
+           DOWNLOAD
+        ========================================== */
+
+        .download-section {
+            margin-top: 30px;
+        }
+
+        .download-button {
+            display: none;
+
+            width: 100%;
+
+            padding: 14px 20px;
+
+            background: #006699;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            text-align: center;
+
+            transition: background 0.2s ease;
+        }
+
+        .download-button:hover {
+            background: #007fb8;
+        }
+
+
+        /* ==========================================
+           SCREENSHOT
+        ========================================== */
+
+        .screenshot-section {
+            display: none;
+
+            margin-top: 30px;
+        }
+
+        .screenshot-wrapper {
+            width: 100%;
+
+            overflow: hidden;
+
+            border-radius: 10px;
+
+            background: #0b0d10;
+        }
+
+        .screenshot-image {
+            display: block;
+
+            width: 100%;
+
+            height: auto;
+
+            border-radius: 10px;
+        }
+
+
+        /* ==========================================
+           LOADING
+        ========================================== */
+
+        .loading {
+            text-align: center;
+
+            padding: 50px 20px;
+
+            color: #b9c0cc;
+        }
+
+
+        /* ==========================================
+           ERROR
+        ========================================== */
+
+        .error {
+            display: none;
+
+            background: #351a1a;
+
+            border: 1px solid #713333;
+
+            color: #ffb4b4;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            line-height: 1.5;
+        }
+
+
+        /* ==========================================
+           SOURCE URL
+        ========================================== */
+
+        .source-url {
+            margin-top: 25px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid #292d35;
+
+            font-size: 13px;
+
+            color: #777f8c;
+
+            word-break: break-all;
+        }
+
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 12px;
+            }
+
+            .movie-card {
+                padding: 15px;
+            }
+
+            .movie-title {
+                font-size: 21px;
+            }
+
+            .detail-row {
+                display: block;
+            }
+
+            .detail-label {
+                width: 100%;
+
+                min-width: 100%;
+
+                margin-bottom: 5px;
+            }
+
+            .detail-value {
+                width: 100%;
+            }
+
+            .poster {
+                max-width: 100%;
+            }
+
+            .header-title {
+                font-size: 21px;
+            }
+
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- ==========================================
+         TOP HEADER
+    ========================================== -->
+
+    <div class="top-header">
+
+        <button
+            class="header-back"
+            type="button"
+            onclick="goBack()"
+            aria-label="Go Back"
+        >
+            ←
+        </button>
+
+
+        <div class="header-logo">
+            🎬
+        </div>
+
+
+        <div class="header-title">
+            Movie <span>Hub</span>
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         LOADING
+    ========================================== -->
+
+    <div
+        id="loading"
+        class="loading"
+    >
+        Loading movie details...
+    </div>
+
+
+    <!-- ==========================================
+         ERROR
+    ========================================== -->
+
+    <div
+        id="error"
+        class="error"
+    ></div>
+
+
+    <!-- ==========================================
+         MOVIE CARD
+    ========================================== -->
+
+    <div
+        id="movieCard"
+        class="movie-card"
+        style="display:none;"
+    >
+
+
+        <!-- ======================================
+             MOVIE TITLE
+        ====================================== -->
+
+        <h1
+            id="movieTitle"
+            class="movie-title"
+        >
+            Movie
+        </h1>
+
+
+        <!-- ======================================
+             POSTER
+        ====================================== -->
+
+        <div class="poster-wrapper">
+
+            <img
+                id="moviePoster"
+                class="poster"
+                src=""
+                alt="Movie Poster"
+                loading="lazy"
+                decoding="async"
+            >
+
+        </div>
+
+
+        <!-- ======================================
+             MOVIE DETAILS
+        ====================================== -->
+
+        <div
+            id="movieDetails"
+            class="details"
+        ></div>
+
+
+        <!-- ======================================
+             DESCRIPTION
+        ====================================== -->
+
+        <div
+            id="descriptionSection"
+            class="description-section"
+            style="display:none;"
+        >
+
+            <h2 class="section-title">
+                Description
+            </h2>
+
+            <div
+                id="movieDescription"
+                class="description"
+            ></div>
+
+        </div>
+
+
+        <!-- ======================================
+             DOWNLOAD
+        ====================================== -->
+
+        <div
+            id="downloadSection"
+            class="download-section"
+            style="display:none;"
+        >
+
+            <a
+                id="downloadButton"
+                class="download-button"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Download
+            </a>
+
+        </div>
+
+
+        <!-- ======================================
+             SCREENSHOT
+        ====================================== -->
+
+        <div
+            id="screenshotSection"
+            class="screenshot-section"
+        >
+
+            <h2 class="section-title">
+                Screenshot
+            </h2>
+
+
+            <div class="screenshot-wrapper">
+
+                <img
+                    id="screenshotImage"
+                    class="screenshot-image"
+                    src=""
+                    alt="Movie Screenshot"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- ======================================
+             SOURCE
+        ====================================== -->
+
+        <div
+            id="sourceUrl"
+            class="source-url"
+            style="display:none;"
+        ></div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   BACK BUTTON
+========================================== */
+
+function goBack() {
+
+    if (window.history.length > 1) {
+
+        window.history.back();
+
+    } else {
+
+        window.location.href = "/";
+
+    }
+
+}
+
+
+/* ==========================================
+   LOAD MOVIE DETAILS
+========================================== */
+
+async function loadMovieDetails() {
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    const error =
+        document.getElementById(
+            "error"
+        );
+
+
+    const movieCard =
+        document.getElementById(
+            "movieCard"
+        );
+
+
+    const movieTitle =
+        document.getElementById(
+            "movieTitle"
+        );
+
+
+    const moviePoster =
+        document.getElementById(
+            "moviePoster"
+        );
+
+
+    const movieDetails =
+        document.getElementById(
+            "movieDetails"
+        );
+
+
+    const descriptionSection =
+        document.getElementById(
+            "descriptionSection"
+        );
+
+
+    const movieDescription =
+        document.getElementById(
+            "movieDescription"
+        );
+
+
+    const downloadSection =
+        document.getElementById(
+            "downloadSection"
+        );
+
+
+    const downloadButton =
+        document.getElementById(
+            "downloadButton"
+        );
+
+
+    const screenshotSection =
+        document.getElementById(
+            "screenshotSection"
+        );
+
+
+    const screenshotImage =
+        document.getElementById(
+            "screenshotImage"
+        );
+
+
+    const sourceUrl =
+        document.getElementById(
+            "sourceUrl"
+        );
+
+
+    try {
+
+
+        /* ======================================
+           GET DOMAIN
+        ====================================== */
+
+        const domain =
+            localStorage.getItem(
+                "domain"
+            );
+
+
+        if (!domain) {
+
+            throw new Error(
+                "Domain not found in localStorage."
+            );
+
+        }
+
+
+        /* ======================================
+           GET CURRENT MOVIE PATH
+        ====================================== */
+
+        const moviePath =
+            window.location.pathname;
+
+
+        if (!moviePath) {
+
+            throw new Error(
+                "Movie path not found."
+            );
+
+        }
+
+
+        /* ======================================
+           CREATE API URL
+        ====================================== */
+
+        const apiUrl =
+            "/api/details?domain=" +
+            encodeURIComponent(
+                domain
+            ) +
+            "&path=" +
+            encodeURIComponent(
+                moviePath
+            );
+
+
+        /* ======================================
+           API REQUEST
+        ====================================== */
+
+        const response =
+            await fetch(
+                apiUrl,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "API request failed. HTTP " +
+                response.status
+            );
+
+        }
+
+
+        /* ======================================
+           JSON RESPONSE
+        ====================================== */
+
+        const data =
+            await response.json();
+
+
+        /* ======================================
+           CHECK SUCCESS
+        ====================================== */
+
+        if (!data.success) {
+
+            throw new Error(
+                data.error ||
+                "Failed to load movie details."
+            );
+
+        }
+
+
+        /* ======================================
+           TITLE
+        ====================================== */
+
+        movieTitle.textContent =
+            data.title ||
+            "Movie";
+
+
+        /* ======================================
+           POSTER
+        ====================================== */
+
+        if (data.poster) {
+
+            moviePoster.src =
+                data.poster;
+
+
+            moviePoster.alt =
+                data.title ||
+                "Movie Poster";
+
+        } else {
+
+            moviePoster.style.display =
+                "none";
+
+        }
+
+
+        /* ======================================
+           DETAILS
+        ====================================== */
+
+        movieDetails.innerHTML = "";
+
+
+        if (
+            data.details &&
+            typeof data.details === "object"
+        ) {
+
+
+            Object.entries(
+                data.details
+            ).forEach(
+                ([label, value]) => {
+
+
+                    /* ------------------------------
+                       Don't show description twice
+                    ------------------------------ */
+
+                    if (
+                        label.toLowerCase() ===
+                        "description"
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const row =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    row.className =
+                        "detail-row";
+
+
+                    const labelElement =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    labelElement.className =
+                        "detail-label";
+
+
+                    labelElement.textContent =
+                        label;
+
+
+                    const valueElement =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    valueElement.className =
+                        "detail-value";
+
+
+                    valueElement.textContent =
+                        value || "-";
+
+
+                    row.appendChild(
+                        labelElement
+                    );
+
+
+                    row.appendChild(
+                        valueElement
+                    );
+
+
+                    movieDetails.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ======================================
+           DESCRIPTION
+        ====================================== */
+
+        if (data.description) {
+
+            movieDescription.textContent =
+                data.description;
+
+
+            descriptionSection.style.display =
+                "block";
+
+        }
+
+
+        /* ======================================
+           DOWNLOAD BUTTON
+        ====================================== */
+
+        if (data.download_url) {
+        
+            downloadButton.onclick = function (event) {
+                event.preventDefault();
+            
+                window.location.href =
+                    "/download_size?url=" +
+                    encodeURIComponent(data.download_url);
+            };
+        
+            downloadButton.textContent =
+                data.download_button_name ||
+                "Download";
+        
+            downloadButton.style.display =
+                "block";
+        
+            downloadSection.style.display =
+                "block";
+        }
+
+
+        /* ======================================
+           SCREENSHOT
+        ====================================== */
+
+        if (data.screenshot) {
+
+
+            screenshotImage.src =
+                data.screenshot;
+
+
+            screenshotImage.alt =
+                (
+                    data.title ||
+                    "Movie"
+                ) +
+                " Screenshot";
+
+
+            screenshotSection.style.display =
+                "block";
+
+        }
+
+        /* ======================================
+           SHOW MOVIE
+        ====================================== */
+
+        loading.style.display =
+            "none";
+
+
+        movieCard.style.display =
+            "block";
+
+    }
+
+
+    catch (err) {
+
+
+        console.error(
+            "Movie API Error:",
+            err
+        );
+
+
+        loading.style.display =
+            "none";
+
+
+        error.textContent =
+            err.message ||
+            "Something went wrong.";
+
+
+        error.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+loadMovieDetails();
+
+</script>
+
+</body>
+</html>

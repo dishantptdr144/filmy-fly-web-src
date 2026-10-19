@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Download - MovieHub</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            padding: 0;
+
+            background: #0f1115;
+
+            color: #ffffff;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 900px;
+
+            margin: 0 auto;
+
+            padding: 15px;
+        }
+
+
+        /* ==========================================
+           HEADER
+        ========================================== */
+
+        .top-header {
+
+            width: 100%;
+
+            height: 64px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 8px 14px;
+
+            margin-bottom: 15px;
+
+            background: #0b0d13;
+
+            border: 1px solid #252933;
+
+            border-radius: 4px;
+        }
+
+
+        .header-back {
+
+            width: 36px;
+
+            height: 36px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 0;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #25205a;
+
+            color: #ffffff;
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .header-back:hover {
+
+            background: #352d78;
+        }
+
+
+        .header-logo {
+
+            width: 38px;
+
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #7047e8;
+
+            border-radius: 9px;
+
+            font-size: 20px;
+        }
+
+
+        .header-title {
+
+            font-size: 23px;
+
+            font-weight: 700;
+
+            color: #ffffff;
+        }
+
+
+        .header-title span {
+
+            color: #9b7cff;
+        }
+
+
+        /* ==========================================
+           CARD
+        ========================================== */
+
+        .card {
+
+            background: #181b21;
+
+            border: 1px solid #292d35;
+
+            border-radius: 12px;
+
+            padding: 20px;
+        }
+
+
+        .movie-title {
+
+            margin: 0 0 10px 0;
+
+            font-size: 22px;
+
+            line-height: 1.4;
+
+            color: #ffffff;
+
+            word-break: break-word;
+        }
+
+
+        .download-heading {
+
+            margin: 0 0 20px 0;
+
+            font-size: 16px;
+
+            color: #9b7cff;
+
+            font-weight: 600;
+        }
+
+
+        /* ==========================================
+           LOADING
+        ========================================== */
+
+        .loading {
+
+            text-align: center;
+
+            padding: 30px 10px;
+
+            color: #aeb5c0;
+        }
+
+
+        /* ==========================================
+           DOWNLOAD BUTTON
+        ========================================== */
+
+        .download-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+
+        .download-item {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 14px 18px;
+
+            background: #006699;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            text-align: center;
+
+            transition:
+                background 0.2s ease,
+                transform 0.1s ease;
+        }
+
+
+        .download-item:hover {
+
+            background: #007fb8;
+        }
+
+
+        .download-item:active {
+
+            transform: scale(0.99);
+        }
+
+
+        /* ==========================================
+           ERROR
+        ========================================== */
+
+        .error {
+
+            display: none;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            background: #351a1a;
+
+            border: 1px solid #713333;
+
+            color: #ffb4b4;
+
+            line-height: 1.5;
+        }
+
+
+        /* ==========================================
+           EMPTY
+        ========================================== */
+
+        .empty {
+
+            display: none;
+
+            text-align: center;
+
+            padding: 30px 10px;
+
+            color: #aeb5c0;
+        }
+
+
+        @media (max-width: 600px) {
+
+            .container {
+
+                padding: 12px;
+            }
+
+
+            .card {
+
+                padding: 15px;
+            }
+
+
+            .header-title {
+
+                font-size: 21px;
+            }
+
+
+            .movie-title {
+
+                font-size: 19px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- ==========================================
+         HEADER
+    ========================================== -->
+
+    <div class="top-header">
+
+        <button
+            class="header-back"
+            type="button"
+            onclick="goBack()"
+            aria-label="Go Back"
+        >
+            ←
+        </button>
+
+
+        <div class="header-logo">
+            🎬
+        </div>
+
+
+        <div class="header-title">
+            Movie <span>Hub</span>
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         CARD
+    ========================================== -->
+
+    <div class="card">
+
+
+        <!-- MOVIE TITLE -->
+
+        <h1
+            class="movie-title"
+            id="movieTitle"
+        >
+        </h1>
+
+
+        <!-- DOWNLOAD HEADING -->
+
+        <h2 class="download-heading">
+            Select Download Quality
+        </h2>
+
+
+        <!-- LOADING -->
+
+        <div
+            id="loading"
+            class="loading"
+        >
+            Getting download links...
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+            id="error"
+            class="error"
+        ></div>
+
+
+        <!-- EMPTY -->
+
+        <div
+            id="empty"
+            class="empty"
+        >
+            No download links found.
+        </div>
+
+
+        <!-- DOWNLOAD LIST -->
+
+        <div
+            id="downloadList"
+            class="download-list"
+        ></div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* ==========================================
+   BACK
+========================================== */
+
+function goBack() {
+
+    if (window.history.length > 1) {
+
+        window.history.back();
+
+    } else {
+
+        window.location.href = "/";
+
+    }
+
+}
+
+
+/* ==========================================
+   LOAD DOWNLOAD LINKS
+========================================== */
+
+async function loadDownloadLinks() {
+
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    const error =
+        document.getElementById(
+            "error"
+        );
+
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+
+    const downloadList =
+        document.getElementById(
+            "downloadList"
+        );
+
+
+    const movieTitle =
+        document.getElementById(
+            "movieTitle"
+        );
+
+
+    try {
+
+
+        /* ======================================
+           GET URL
+        ====================================== */
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const downloadUrl =
+            params.get("url");
+
+
+        if (!downloadUrl) {
+
+            throw new Error(
+                "Download URL is missing."
+            );
+
+        }
+
+
+        /* ======================================
+           API
+        ====================================== */
+
+        const apiUrl =
+            "/api/resolve-download?url=" +
+            encodeURIComponent(
+                downloadUrl
+            );
+
+
+        const response =
+            await fetch(
+                apiUrl,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
+                }
+            );
+        
+        const data =
+            await response.json();
+        
+        
+        if (
+            data.error ===
+            "Download provider is not supported."
+        ) {
+        
+            throw new Error(
+                "Download provider is not supported."
+            );
+        
+        }
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "API request failed. HTTP " +
+                response.status
+            );
+
+        }
+
+
+        /* ======================================
+           API ERROR
+        ====================================== */
+
+        if (!data.success) {
+
+            throw new Error(
+                data.error ||
+                "Could not get download links."
+            );
+
+        }
+
+
+        /* ======================================
+           MOVIE TITLE
+        ====================================== */
+
+        const title =
+            data.movie_title ||
+            "Movie";
+
+
+        movieTitle.textContent =
+            title;
+
+
+        document.title =
+            title +
+            " - Movie Hub";
+
+
+        /* ======================================
+           HIDE LOADING
+        ====================================== */
+
+        loading.style.display =
+            "none";
+
+
+        /* ======================================
+           NO LINKS
+        ====================================== */
+
+        if (
+            !Array.isArray(
+                data.links
+            ) ||
+            data.links.length === 0
+        ) {
+
+            empty.style.display =
+                "block";
+
+            return;
+
+        }
+
+
+        /* ======================================
+           CREATE BUTTONS
+        ====================================== */
+
+        data.links.forEach(
+            (item) => {
+
+
+                if (
+                    !item ||
+                    !item.url
+                ) {
+
+                    return;
+
+                }
+
+
+                const link =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                link.className =
+                    "download-item";
+
+
+                link.href =
+                    "/download_links?url=" +
+                    encodeURIComponent(
+                        item.url
+                    );
+
+
+                link.textContent =
+                    item.title ||
+                    "Download";
+
+
+                downloadList.appendChild(
+                    link
+                );
+
+            }
+        );
+
+
+        /* ======================================
+           CHECK IF NOTHING WAS CREATED
+        ====================================== */
+
+        if (
+            downloadList.children.length === 0
+        ) {
+
+            empty.style.display =
+                "block";
+
+        }
+
+    }
+
+
+    catch (err) {
+
+
+        console.error(
+            "Download Error:",
+            err
+        );
+
+
+        loading.style.display =
+            "none";
+
+
+        movieTitle.textContent =
+            "Download";
+
+
+        error.textContent =
+            err.message ||
+            "Something went wrong.";
+
+
+        error.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+loadDownloadLinks();
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Download Links - MovieHub</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0f1115;
+            color: #ffffff;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        /* ==============================
+           HEADER
+        ============================== */
+
+        .top-header {
+            width: 100%;
+            height: 64px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 8px 14px;
+            margin-bottom: 15px;
+
+            background: #0b0d13;
+            border: 1px solid #252933;
+            border-radius: 4px;
+        }
+
+        .header-back {
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 0;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #25205a;
+            color: #ffffff;
+
+            font-size: 21px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .header-back:hover {
+            background: #352d78;
+        }
+
+        .header-logo {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #7047e8;
+            border-radius: 9px;
+
+            font-size: 20px;
+        }
+
+        .header-title {
+            font-size: 23px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .header-title span {
+            color: #9b7cff;
+        }
+
+        /* ==============================
+           CARD
+        ============================== */
+
+        .card {
+            background: #181b21;
+            border: 1px solid #292d35;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .page-title {
+            margin: 0 0 18px 0;
+            font-size: 23px;
+        }
+
+        /* ==============================
+           FILE INFO
+        ============================== */
+
+        .file-info {
+            background: #101319;
+            border: 1px solid #292d35;
+            border-radius: 9px;
+
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .file-title {
+            font-size: 17px;
+            font-weight: bold;
+            line-height: 1.5;
+
+            word-break: break-word;
+
+            margin-bottom: 8px;
+        }
+
+        .file-size {
+            color: #aeb5c0;
+            font-size: 14px;
+        }
+
+        /* ==============================
+           DOWNLOAD LIST
+        ============================== */
+
+        .section-title {
+            margin: 0 0 12px 0;
+            font-size: 17px;
+        }
+
+        .download-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .download-item {
+            display: block;
+
+            width: 100%;
+
+            padding: 14px 18px;
+
+            background: #006699;
+            color: #ffffff;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+            text-align: center;
+
+            transition:
+                background 0.2s ease,
+                transform 0.1s ease;
+        }
+
+        .download-item:hover {
+            background: #007fb8;
+        }
+
+        .download-item:active {
+            transform: scale(0.99);
+        }
+
+        /* ==============================
+           ERROR
+        ============================== */
+
+        .error {
+            padding: 15px;
+
+            border-radius: 8px;
+
+            background: #351a1a;
+            border: 1px solid #713333;
+
+            color: #ffb4b4;
+
+            line-height: 1.5;
+        }
+
+        /* ==============================
+           EMPTY
+        ============================== */
+
+        .empty {
+            text-align: center;
+
+            padding: 30px 10px;
+
+            color: #aeb5c0;
+        }
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .header-title {
+                font-size: 21px;
+            }
+
+            .page-title {
+                font-size: 21px;
+            }
+
+            .file-title {
+                font-size: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ==============================
+             HEADER
+        ============================== -->
+
+        <div class="top-header">
+
+            <button
+                class="header-back"
+                type="button"
+                onclick="goBack()"
+                aria-label="Go Back"
+            >
+                ←
+            </button>
+
+            <div class="header-logo">
+                🎬
+            </div>
+
+            <div class="header-title">
+                Movie <span>Hub</span>
+            </div>
+
+        </div>
+
+
+        <!-- ==============================
+             CARD
+        ============================== -->
+
+        <div class="card">
+
+            <h1 class="page-title">
+                Download Links
+            </h1>
+
+
+            {% if error %}
+
+                <div class="error">
+                    {{ error }}
+                </div>
+
+            {% else %}
+
+                <!-- FILE INFORMATION -->
+
+                <div class="file-info">
+
+                    {% if title %}
+                        <div class="file-title">
+                            {{ title }}
+                        </div>
+                    {% endif %}
+
+                    {% if info %}
+                        <div class="file-size">
+                            {{ info }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- DOWNLOAD OPTIONS -->
+
+                {% if links %}
+
+                    <h2 class="section-title">
+                        Available Links
+                    </h2>
+
+                    <div class="download-list">
+
+                        {% for item in links %}
+
+                            <a
+                                class="download-item"
+                                href="{{ item.url }}"
+                            >
+                                {{ item.title }}
+                            </a>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="empty">
+                        No download links found.
+                    </div>
+
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function goBack() {
+
+            if (window.history.length > 1) {
+
+                window.history.back();
+
+            } else {
+
+                window.location.href = "/";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
